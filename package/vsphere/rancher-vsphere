@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-set -o xtrace
+# set -o xtrace
 
 if [ -e "$(dirname $0)/common.sh" ]; then
     source "$(dirname $0)/common.sh"
@@ -19,14 +19,16 @@ create()
 {
     local name="${OPTS[name]}"
     local size=${OPTS[size]:-1gb}
-    docker volume create --driver=vsphere --name="$name" -o diskformat=zeroedthick -o size="$size" 2>&1 | logger
+    docker volume create --driver=vsphere --name="$name" -o diskformat=zeroedthick -o size="$size" &>/dev/null
+    # 2>&1 | logger
     print_success
 }
 
 delete()
 {
     local name="${OPTS[name]}"
-    docker volume rm "$name" 2>&1 | logger
+    docker volume rm "$name"  &>/dev/null
+    # 2>&1 | logger
     print_success
 }
 
@@ -45,7 +47,7 @@ attach()
 #        DEVICE=$(losetup --show -f ${IMG})
 #    fi
 #
-   print_device "hest"
+   # print_device "hest"
 }
 
 detach()

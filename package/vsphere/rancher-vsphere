@@ -18,22 +18,21 @@ init()
 create()
 {
     local name="${OPTS[name]}"
-    local output
-    output=$(docker volume create --driver=vsphere --name="$name" -o diskformat=zeroedthick -o size=1gb)
+    local size=${OPTS[size]:-1gb}
+    docker volume create --driver=vsphere --name="$name" -o diskformat=zeroedthick -o size="$size" 2>&1 | logger
     print_success
 }
 
 delete()
 {
     local name="${OPTS[name]}"
-    local output
-    output=$(docker volume rm "$name")
+    docker volume rm "$name" 2>&1 | logger
     print_success
 }
 
 attach()
 {
-    # print_not_supported
+    print_not_supported
 #    # The OPTS variable will be populated from the input JSON as a map of key/values
 #    IMG=${OPTS[volumeID]}.img
 #    if [ ! -e "${IMG}" ]; then

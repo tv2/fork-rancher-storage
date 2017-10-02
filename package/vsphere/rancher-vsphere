@@ -34,7 +34,7 @@ delete()
 
 attach()
 {
-    print_not_supported
+    # print_not_supported
 #    # The OPTS variable will be populated from the input JSON as a map of key/values
 #    IMG=${OPTS[volumeID]}.img
 #    if [ ! -e "${IMG}" ]; then
@@ -47,7 +47,9 @@ attach()
 #        DEVICE=$(losetup --show -f ${IMG})
 #    fi
 #
-   # print_device "hest"
+   local DEVICE
+   DEVICE=$(docker volume ls --format "{{ .Name }}" | grep "${OPTS[name]}" >/dev/null)
+   print_device "$DEVICE"
 }
 
 detach()

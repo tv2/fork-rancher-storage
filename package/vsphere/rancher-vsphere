@@ -3,36 +3,36 @@ set -x
 set -o xtrace
 
 if [ -e "$(dirname $0)/common.sh" ]; then
-    source $(dirname $0)/common.sh
+    source "$(dirname $0)/common.sh"
 elif [ -e "$(dirname $0)/../common/common.sh" ]; then
-    source $(dirname $0)/../common/common.sh
+   source "$(dirname $0)/../common/common.sh"
 fi
 
-log_info "$0 $@"
+log_info "$0 $*"
 
 init()
 {
-    logger "$@"
     print_success
 }
 
 create()
 {
-    logger "$@"
-    docker volume create --driver=vsphere --name=rancher-vsphere-test -o diskformat=zeroedthick -o size=1gb
+    local name="${OPTS[name]}"
+    local output
+    output=$(docker volume create --driver=vsphere --name="$name" -o diskformat=zeroedthick -o size=1gb)
     print_success
 }
 
 delete()
 {
-    logger "$@"
-    docker volume rm rancher-vsphere-test
+    local name="${OPTS[name]}"
+    local output
+    output=$(docker volume rm "$name")
     print_success
 }
 
 attach()
 {
-    logger "$@"
     # print_not_supported
 #    # The OPTS variable will be populated from the input JSON as a map of key/values
 #    IMG=${OPTS[volumeID]}.img
@@ -51,7 +51,6 @@ attach()
 
 detach()
 {
-    logger "$@"
     # ${DEVICE} will be set with the device that should be detached
     # losetup -d ${DEVICE}
     print_not_supported
@@ -59,7 +58,6 @@ detach()
 
 mountdest()
 {
-    logger "$@"
     # ${MNT_DEST} will be set with the directory where the filesystem should be mounted
     # ${DEVICE} will be the device returned from attach, if any
     # ${OPTS} will be populated with the options from the JSON input
@@ -68,7 +66,6 @@ mountdest()
 
 unmount()
 {
-    logger "$@"
     # ${MNT_DEST} will be set with the directory from which the filesystem should be unmounted
     print_not_supported
 }

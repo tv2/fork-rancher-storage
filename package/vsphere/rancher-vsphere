@@ -12,37 +12,38 @@ log_info "$0 $*"
 
 init()
 {
-    print_success
+   log_info "hardcoded:build:id:42"
+   print_success
 }
 
 create()
 {
-    print_success
+   print_success
 }
 
 delete()
 {
-    print_success purged
+   print_success purged
 }
 
 attach()
 {
-    print_not_supported
+   print_not_supported
 }
 
 detach()
 {
-    print_not_supported
+   print_not_supported
 }
 
 mountdest()
 {
-    print_success
+   print_success
 }
 
 unmount()
 {
-    print_success
+   print_success
 }
 
 # Every script must call main as such

@@ -17,60 +17,32 @@ init()
 
 create()
 {
-    local name="${OPTS[name]}"
-    local size=${OPTS[size]:-1gb}
-    docker volume create --driver=vsphere --name="$name" -o diskformat=zeroedthick -o size="$size" &>/dev/null
-    # 2>&1 | logger
     print_success
 }
 
 delete()
 {
-    local name="${OPTS[name]}"
-    docker volume rm "$name"  &>/dev/null
-    # 2>&1 | logger
-    print_success
+    print_success purged
 }
 
 attach()
 {
-    # print_not_supported
-#    # The OPTS variable will be populated from the input JSON as a map of key/values
-#    IMG=${OPTS[volumeID]}.img
-#    if [ ! -e "${IMG}" ]; then
-#        print_error "Failed to find ${IMG}"
-#    fi
-#
-#    DEVICE=$(get_attached_dev ${IMG})
-#    if [ $? -ne 0 ]
-#    then
-#        DEVICE=$(losetup --show -f ${IMG})
-#    fi
-#
-   local DEVICE
-   DEVICE=$(docker volume ls --format "{{ .Name }}" | grep "${OPTS[name]}" >/dev/null)
-   print_device "$DEVICE"
+    print_not_supported
 }
 
 detach()
 {
-    # ${DEVICE} will be set with the device that should be detached
-    # losetup -d ${DEVICE}
     print_not_supported
 }
 
 mountdest()
 {
-    # ${MNT_DEST} will be set with the directory where the filesystem should be mounted
-    # ${DEVICE} will be the device returned from attach, if any
-    # ${OPTS} will be populated with the options from the JSON input
-    print_not_supported
+    print_success
 }
 
 unmount()
 {
-    # ${MNT_DEST} will be set with the directory from which the filesystem should be unmounted
-    print_not_supported
+    print_success
 }
 
 # Every script must call main as such

@@ -12,37 +12,43 @@ log_info "$0 $*"
 
 init()
 {
-   log_info "hardcoded:build:id:42"
+   log_info "devops:init($*)"
    print_success
 }
 
 create()
 {
+   log_info "devops" "create($*)"
    print_success
 }
 
 delete()
 {
+   log_info "devops" "delete($*)"
    print_success purged
 }
 
 attach()
 {
+   log_info "devops" "attach($*)"
    print_not_supported
 }
 
 detach()
 {
+   log_info "devops" "detach($*)"
    print_not_supported
 }
 
 mountdest()
 {
+   log_info "devops" "mountdest($*)"
    print_success
 }
 
 unmount()
 {
+   log_info "devops" "unmount($*)"
    print_success
 }
 
